@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+
+set -e
+
+echo "\n== Connecting to shelfie_development\n"
+PGPASSWORD=postgres psql -U postgres \
+                         -h postgres \
+                         -p 5432 \
+                         shelfie_development

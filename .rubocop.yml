@@ -1,0 +1,25 @@
+plugins:
+  - rubocop-capybara
+  - rubocop-factory_bot
+  - rubocop-performance
+  - rubocop-rails
+  - rubocop-minitest
+  - rubocop-thread_safety
+
+# Omakase Ruby styling for Rails
+inherit_gem: { rubocop-rails-omakase: rubocop.yml }
+
+AllCops:
+  NewCops: enable
+  Exclude:
+    - tmp/**/*
+    - bin/**/*
+    - vendor/**/*
+    - public/**/*
+    - coverage/**/*
+    - docs/**/*
+    - db/schema*.*
+    - node_modules/**/*
+
+Style/FrozenStringLiteralComment:
+  Enabled: true

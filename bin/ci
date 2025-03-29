@@ -1,0 +1,26 @@
+#!/usr/bin/env sh
+
+set -e
+
+export CI=true
+export RAILS_ENV=test
+
+echo "\n== Prepare the test database\n"
+bin/rails db:prepare
+
+echo "\n== Linting code with safe autocorrection\n"
+bin/rubocop -A
+
+echo "\n== Linting ERB templates with autocorrect\n"
+bin/erb_lint --lint-all --autocorrect
+
+echo "\n== Running unit and system tests\n"
+bin/rails test:all
+
+echo "\n== Analysing code for security vulnerabilities\n"
+bin/brakeman -q -o tmp/brakeman.html
+
+echo "\n== Analysing Ruby gems for security vulnerabilities\n"
+bin/bundle-audit check --update
+
+echo "\n== Done!\n"

@@ -1,0 +1,4 @@
+ruby 3.4.2
+nodejs lts
+yarn latest
+pnpm latest

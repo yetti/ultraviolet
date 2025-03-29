@@ -1,0 +1,136 @@
+// For format details, see https://containers.dev/implementors/json_reference/.
+// For config options, see the README at: https://github.com/devcontainers/templates/tree/main/src/ruby
+{
+  "name": "ultraviolet",
+  "dockerComposeFile": "compose.yaml",
+  "service": "rails-app",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+
+  // Features to add to the dev container. More info: https://containers.dev/features.
+  "features": {
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/rails/devcontainer/features/activestorage": {},
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "lts",
+      "installYarn": true,
+      "installPnpm": true,
+      "installNpm": true,
+      "installNodeVersionManager": false
+    },
+    "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {},
+    "ghcr.io/rails/devcontainer/features/postgres-client": {},
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "installZsh": true,
+      "configureZshAsDefaultShell": true,
+      "installOhMyZsh": false,
+      "installOhMyZshConfig": false,
+      "upgradePackages": true
+    },
+    "ghcr.io/devcontainers/features/desktop-lite:1": {}
+  },
+
+  "containerEnv": {
+    "CAPYBARA_SERVER_PORT": "45678",
+    "SELENIUM_HOST": "selenium",
+    "KAMAL_REGISTRY_PASSWORD": "$KAMAL_REGISTRY_PASSWORD",
+    "DB_HOST": "postgres"
+  },
+
+  // Use 'forwardPorts' to make a list of ports inside the container available locally.
+  "forwardPorts": [
+    1080,
+    3000,
+    5432,
+    6080,
+    6379
+  ],
+  "portsAttributes": {
+    "6080": {
+      "label": "desktop"
+    }
+  },
+
+  // Configure tool-specific properties.
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-azuretools.vscode-docker",
+        "ms-vscode-remote.vscode-remote-extensionpack",
+        "Shopify.ruby-extensions-pack",
+        "kaiwood.endwise",
+        "rubocop.vscode-rubocop",
+        "KoichiSasada.vscode-rdbg",
+        "ms-vscode.remote-explorer",
+        "ninoseki.vscode-mogami",
+        "connorshea.vscode-ruby-test-adapter",
+        "oderwat.indent-rainbow",
+        "eamodio.gitlens",
+        "mhutchie.git-graph",
+        "donjayamanne.githistory",
+        "howardzuo.vscode-git-tags",
+        "GitHub.vscode-pull-request-github",
+        "ziyasal.vscode-open-in-github",
+        "redhat.vscode-xml",
+        "redhat.vscode-yaml",
+        "bradlc.vscode-tailwindcss",
+        "rafamel.subtle-brackets",
+        "sibiraj-s.vscode-scss-formatter",
+        "aki77.rails-db-schema",
+        "tavo.rails-schema",
+        "johnpapa.vscode-peacock",
+        "mikestead.dotenv",
+        "aki77.autocomplete-symbols",
+        "aaron-bond.better-comments",
+        "sashaweiss.bracket-jumper",
+        "wmaurer.change-case",
+        "streetsidesoftware.code-spell-checker",
+        "naumovs.color-highlight",
+        "GauravSharma.colorized-access-modifier",
+        "ezforo.copy-relative-path-and-line-numbers",
+        "mickey.code-copy-ruby-ref",
+        "mrmlnc.vscode-duplicate",
+        "EditorConfig.EditorConfig",
+        "manuelpuyol.erb-linter",
+        "aki77.html-erb",
+        "lokalise.i18n-ally",
+        "Zignd.html-css-class-completion",
+        "strigo.linear",
+        "linear.linear-connect",
+        "monokai.theme-monokai-pro-vscode",
+        "adrianwilczynski.open-folder-in-explorer",
+        "IBM.output-colorizer",
+        "csstools.postcss",
+        "ms-ossdata.vscode-postgresql",
+        "esbenp.prettier-vscode",
+        "benspaulding.procfile",
+        "sporto.rails-go-to-spec",
+        "shanehofstetter.rails-open-partial",
+        "aki77.rails-routes",
+        "makicamel.rails-routes-navigator",
+        "aki77.rails-view-component",
+        "elliotlarson.ruby-around-the-block",
+        "miguel-savignano.ruby-symbols",
+        "mrmlnc.vscode-scss",
+        "ionutvmi.spacegray-vscode",
+        "testdouble.vscode-standard-ruby",
+        "standard.vscode-standard",
+        "hbenl.vscode-test-explorer",
+        "jgclark.vscode-todo-highlight",
+        "Gruntfuggly.todo-tree",
+        "BriteSnow.vscode-toggle-quotes",
+        "tomoki1207.pdf",
+        "jock.svg"
+      ]
+    }
+  },
+  "mounts": [
+    "source=${localWorkspaceFolderBasename}-node_modules,target=${containerWorkspaceFolder}/node_modules,type=volume"
+  ],
+
+  // Uncomment to connect as root instead. More info: https://containers.dev/implementors/json_reference/#remoteUser.
+  // "remoteUser": "root",
+
+
+  // Use 'postCreateCommand' to run commands after the container is created.
+  "postCreateCommand": "sudo chown vscode node_modules && bin/setup --skip-server"
+}

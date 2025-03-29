@@ -1,0 +1,13 @@
+---
+EnableDefaultLinters: true
+glob: "**/*.{html,text,js}{+*,}.erb"
+exclude:
+  - '**/vendor/**/*'
+  - '**/node_modules/**/*'
+  - '**/tmp/**/*'
+  - '**/coverage/**/*'
+  - '**/public/**/*'
+linters:
+  ErbSafety:
+    enabled: true
+    better_html_config: .better-html.yml
